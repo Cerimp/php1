@@ -4,14 +4,14 @@
 include __DIR__.'/functions.php';
 
 if (isset($_POST['record']) && !empty($_POST['record'])) {
-    $records = dataBook(__DIR__.'/data.txt');
-    if (count($records) === 0) {
-        $records[] = $_POST['record'];
-    } else {
-        $records[] = "\n".$_POST['record'];
-    }
+    $records = dataBook();
 
-    file_put_contents(__DIR__.'/data.txt', $records);
+    foreach ($records as $key => $record) {
+        $records[$key] = trim($record);
+    }
+    $records[] = $_POST['record'];
+
+    file_put_contents(__DIR__.'/data.txt', implode("\n", $records));
 }
     header('Location: /4/gbook/');
     exit;

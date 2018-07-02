@@ -1,5 +1,5 @@
 <?php
 
-function dataBook($fileData) {
-    return file($fileData);
+function dataBook() {
+    return file(__DIR__.'/data.txt');
 }

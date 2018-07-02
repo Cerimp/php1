@@ -24,7 +24,7 @@
 // Подключаем функции
 include __DIR__.'/functions.php';
 // Получаем массив записей
-$records = dataBook(__DIR__.'/data.txt');
+$records = dataBook();
 
 foreach ($records as $record) {
     echo $record.'<br/>';
