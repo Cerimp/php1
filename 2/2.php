@@ -72,42 +72,25 @@ $a = 1;
 $b = 3;
 $c = -4;
 
-/*
- * Вычисление кореней квадратного уравнения
- * $korenNumber - дополнительный параметр. определяет первый или второй корень уравнения при дискриминанте больше 0
- */
-function result($discriminant, $korenNumber = null, $a, $b) {
-    if ($discriminant > 0) {
-        if ($korenNumber == 1) {
-            return (-$b + sqrt($discriminant))/(2*$a);
-        } elseif ($korenNumber == 2) {
-            return (-$b - sqrt($discriminant))/(2*$a);
-        } else {
-            return null;
-        }
-    } elseif ($discriminant == 0) {
-        return -$b/(2*$a);
-    } elseif ($discriminant < 0) {
-        return null;
-    }
-}
-// D < 0
-assert(null == result(discriminant(1,-5,9),  null, 1, -5));
-// D == 0
-assert(2 == result(discriminant(1,-4,4),  null, 1, -4));
-// D > 0
-assert(1 == result(discriminant(1,3,-4),  1, 1, 3));
-assert(-4 == result(discriminant(1,3,-4),  2, 1, 3));
-// не x1 и не x2 -  то есть неверный формат вызова
-assert(null == result(discriminant(1,3,-4),  5, 1, 3));
-
 ?>
 <div>
     <p>Решение квадратного уравнения:</p>
     <p> <?php echo $a; ?><i>x <sup><small>2</small></sup>
-            <?php if ($b > 0) {echo '+';} else {echo '-';}  ?>
+            <?php
+            if ($b > 0) {
+                echo '+';
+            } else {
+                echo '-';
+            }
+            ?>
             <?php echo abs($b) ?>x
-            <?php if ($c > 0) {echo '+';} else {echo '-';}  ?>
+            <?php
+            if ($c > 0) {
+                echo '+';
+            } else {
+                echo '-';
+            }
+            ?>
             <?php echo abs($c) ?> </i>
     </p>
 </div>
@@ -130,17 +113,17 @@ assert(null == result(discriminant(1,3,-4),  5, 1, 3));
         <p><i>x <sub><small>1,2</small></sub> = (-b ± √D)/(2a)</i></p>
         <p><i>x <sub><small>1</small></sub> = (-b + √D)/(2a)</i> =
             (<?php echo -$b; ?> + √<?php echo $discr; ?>)/(2*<?php echo $a; ?>) =
-            <?php echo result($discr, 1, $a, $b); ?>
+            <?php echo (-$b + sqrt($discr))/(2*$a); ?>
         </p>
         <p><i>x <sub><small>2</small></sub> = (-b - √D)/(2a)</i> =
             (<?php echo -$b; ?> - √<?php echo $discr; ?>)/(2*<?php echo $a; ?>) =
-            <?php echo result($discr, 2, $a, $b); ?>
+            <?php echo (-$b - sqrt($discr))/(2*$a); ?>
         </p>
 
     <?php } elseif ($discr == 0) { ?>
         <p>x = -b/(2a) =
             <?php echo -$b; ?>/(2*<?php echo $a; ?>) =
-            <?php echo result($discr, null, $a, $b); ?>
+            <?php echo -$b/(2*$a); ?>
         </p>
 
     <?php } elseif ($discr < 0) { ?>
