@@ -14,7 +14,7 @@
 
 
 <?php
-$images = include (__DIR__.'/data.php');
+$images = include __DIR__.'/data.php';
 
 foreach ($images as $id => $image) {?>
     <a href="/3/gallery/image.php?id=<?php echo $id ?>"><img src="/3/gallery/images/<?php echo $image ?>" alt="" height="200px;"></a>
