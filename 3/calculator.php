@@ -13,17 +13,25 @@
     * Попробуйте улучшить программу. Пусть данные отправляются на ту же страницу на PHP, введенные числа останутся в input-ах, а результат появится после кнопки "равно"</h2>
 
 <?php
-$number1 = $_GET['number1'];
-$number2 = $_GET['number2'];
+$operationsArray = ['plus' => '+', 'minus' => '-', 'multiplication' => '*', 'division' => '/'];
 
-if ('' === $number1) {
-    $number1 = 0;
+if (isset($_GET['number1'])) {
+    $number1 = $_GET['number1'];
+    if ('' === $number1) {
+        $number1 = 0;
+    }
 }
-if ('' === $number2) {
-    $number2 = 0;
+if (isset($_GET['number2'])) {
+    $number2 = $_GET['number2'];
+    if ('' === $number2) {
+        $number2 = 0;
+    }
 }
 
-$operation = $_GET['operation'];
+if (isset($_GET['operation'])) {
+    $operation = $_GET['operation'];
+}
+
 
 function calculator($operation, $number1, $number2) {
     switch ($operation) {
@@ -66,7 +74,6 @@ else {
     ?>
     <h3>Результат</h3>
     <?php
-    $result = calculator($operation, $number1, $number2);
 }
 ?>
 
@@ -76,37 +83,29 @@ else {
         echo $_GET['number1'];
     } ?>">
     <select name="operation">
-        <option value="plus"
-            <?php
-            if ($_GET['operation'] == 'plus') {
+
+        <?php
+
+        foreach ($operationsArray as $op => $opSymbol) { ?>
+        <option value="<?php echo $op ?>" <?php
+            if (isset($_GET['operation']) && $_GET['operation'] == $op) {
                 echo 'selected';
-            }
-            ?>>+</option>
-        <option value="minus"
-            <?php
-            if ($_GET['operation'] == 'minus') {
-                echo 'selected';
-            }
-            ?>>-</option>
-        <option value="multiplication"
-            <?php
-            if ($_GET['operation'] == 'multiplication') {
-                echo 'selected';
-            }
-            ?>>*</option>
-        <option value="division"
-            <?php
-            if ($_GET['operation'] == 'division') {
-                echo 'selected';
-            }
-            ?>>/</option>
+            }?>
+            ><?php echo $opSymbol ?></option>
+        <?php } ?>
+
     </select>
     <input type="text" name="number2" value="<?php
     if (isset($_GET['number2'])) {
         echo $_GET['number2'];
     }
     ?>">
-    <button type="submit">=</button> <?php echo $result; ?>
+    <button type="submit">=</button>
+    <?php
+    if (isset($number1) && isset($number2) && isset($operation)) {
+        echo calculator($operation, $number1, $number2);
+    }
+    ?>
 </form>
 
 
